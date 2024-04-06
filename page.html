@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Cards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: yellow; /* Желтый задний фон */
+    }
+
+    .main-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .pokemon-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-around;
+    }
+
+    .pokemon-card {
+      width: 150px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .pokemon-header {
+      padding: 10px;
+      text-align: center;
+      background-color: #f1f1f1;
+    }
+
+    .pokemon-header img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 5px;
+    }
+
+    .pokemon-name {
+      margin: 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1>GEEKS</h1>
+  </div>
+  <div class="pokemon-container" id="pokemonContainer">
+    <!-- Пустые div для карточек покемонов -->
+  </div>
+
+  <script>
+    const container = document.getElementById('pokemonContainer');
+
+    // Функция для создания и добавления карточки покемона
+    function createPokemonCard(name, imageUrl) {
+      const card = document.createElement('div');
+      card.classList.add('pokemon-card');
+
+      const header = document.createElement('div');
+      header.classList.add('pokemon-header');
+
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = name;
+
+      const pokemonName = document.createElement('h2');
+      pokemonName.classList.add('pokemon-name');
+      pokemonName.textContent = name;
+
+      header.appendChild(img);
+      header.appendChild(pokemonName);
+      card.appendChild(header);
+
+      container.appendChild(card);
+    }
+
+    // Функция для получения списка покемонов и создания карточек
+    function fetchPokemons() {
+      fetch('https://pokeapi.co/api/v2/pokemon/?limit=6') // Запрашиваем только 6 покемонов
+        .then(response => response.json())
+        .then(data => {
+          data.results.forEach(pokemon => {
+            fetch(pokemon.url)
+              .then(response => response.json())
+              .then(pokemonData => {
+                const name = pokemonData.name;
+                const imageUrl = pokemonData.sprites.front_default;
+                createPokemonCard(name, imageUrl);
+              });
+          });
+        })
+        .catch(error => console.error('Error fetching pokemons:', error));
+    }
+
+    // Вызов функции для загрузки покемонов при загрузке страницы
+    document.addEventListener('DOMContentLoaded', fetchPokemons);
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: yellow; /* Желтый задний фон */
+  }
+ 
+  .pokemon-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  .pokemon-card {
+    width: 150px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .pokemon-header {
+    padding: 10px;
+    text-align: center;
+    background-color: #f1f1f1;
+  }
+  
+  .pokemon-header img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 5px;
+  }
+  
+  .pokemon-name {
+    margin: 0;
+    font-size: 16px;
+  }
+  
